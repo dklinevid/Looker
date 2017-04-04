@@ -2,17 +2,17 @@ view: flight_media_details_base {
   sql_table_name: DIM.FLIGHT_MEDIA_DETAILS_BASE ;;
 
   dimension: agency_fee {
-    type: string
+    type:number
     sql: ${TABLE}.AGENCY_FEE ;;
   }
 
   dimension: begin_datetime_local {
-    type: string
+    type: date_hour
     sql: ${TABLE}.BEGIN_DATETIME_LOCAL ;;
   }
 
   dimension: begin_datetm {
-    type: string
+    type: date_hour
     sql: ${TABLE}.BEGIN_DATETM ;;
   }
 
@@ -27,7 +27,7 @@ view: flight_media_details_base {
   }
 
   dimension: changedon {
-    type: string
+    type: date_millisecond
     sql: ${TABLE}.CHANGEDON ;;
   }
 
@@ -47,7 +47,7 @@ view: flight_media_details_base {
   }
 
   dimension: createdon {
-    type: string
+    type: date_millisecond
     sql: ${TABLE}.CREATEDON ;;
   }
 
