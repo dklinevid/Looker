@@ -6,8 +6,8 @@ view: impression_fact {
     sql: ${TABLE}.AD_BUYER_ID ;;
   }
 
-  dimension: addon_product_cost {
-    type: string
+  measure: addon_product_cost {
+    type: sum
     sql: ${TABLE}.ADDON_PRODUCT_COST ;;
   }
 
@@ -16,8 +16,8 @@ view: impression_fact {
     sql: ${TABLE}.ADID ;;
   }
 
-  dimension: adserving_cost {
-    type: string
+  measure: adserving_cost {
+    type: sum
     sql: ${TABLE}.ADSERVING_COST ;;
   }
 
@@ -26,8 +26,8 @@ view: impression_fact {
     sql: ${TABLE}.ADSERVING_COST_CURRENCY ;;
   }
 
-  dimension: adserving_cost_markup {
-    type: string
+  measure: adserving_cost_markup {
+    type: sum
     sql: ${TABLE}.ADSERVING_COST_MARKUP ;;
   }
 
@@ -52,8 +52,8 @@ view: impression_fact {
     sql: ${TABLE}.ASSET_ID ;;
   }
 
-  dimension: autoplay {
-    type: string
+  measure: autoplay {
+    type: sum
     sql: ${TABLE}.AUTOPLAY ;;
   }
 
@@ -62,8 +62,8 @@ view: impression_fact {
     sql: ${TABLE}.AWSREGION ;;
   }
 
-  dimension: bid {
-    type: string
+  measure: bid {
+    type: sum
     sql: ${TABLE}.BID ;;
   }
 
@@ -72,13 +72,13 @@ view: impression_fact {
     sql: ${TABLE}.BID_CURRENCY ;;
   }
 
-  dimension: billable_impressions {
-    type: string
+  measure: billable_impressions {
+    type: sum
     sql: ${TABLE}.BILLABLE_IMPRESSIONS ;;
   }
 
-  dimension: billable_units {
-    type: string
+  measure: billable_units {
+    type: sum
     sql: ${TABLE}.BILLABLE_UNITS ;;
   }
 
@@ -87,8 +87,8 @@ view: impression_fact {
     sql: ${TABLE}.BROWSER ;;
   }
 
-  dimension: bt_cluster_cost {
-    type: string
+  measure: bt_cluster_cost {
+    type: sum
     sql: ${TABLE}.BT_CLUSTER_COST ;;
   }
 
