@@ -155,6 +155,7 @@ view: impression_fact {
 
  measure: ctr {
    type: sum
+   label: "CTR"
   sql: ${TABLE}.CLICKS *1.0/${TABLE}.CLICK_IMPRESSIONS ;;
  }
 
@@ -190,6 +191,7 @@ view: impression_fact {
 
   measure: VCR {
     type: sum
+    label: "VCR"
     sql: ${TABLE}.completed_100*1.0/${TABLE}.completed_pct_impressions ;;
   }
 
@@ -220,6 +222,7 @@ view: impression_fact {
 
   measure: VTR {
     type: sum
+    label: "VTR"
     sql: ((${TABLE}.completed_25*.25) + (${TABLE}.completed_50 *.50) + (${TABLE}.completed_75 *.75)
     + (${TABLE}.completed_100 *1.0)) / ${TABLE}.completion_pct_impressions ;;
   }
