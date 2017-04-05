@@ -1,8 +1,10 @@
 view: impression_fact {
+  label: "Impression Metrics"
   sql_table_name: RAWDB.IMPRESSION_FACT ;;
 
   dimension: ad_buyer_id {
     type: string
+    hidden: yes
     sql: ${TABLE}.AD_BUYER_ID ;;
   }
 
@@ -36,22 +38,25 @@ view: impression_fact {
 
   dimension: age {
     type: string
+    hidden: yes
     sql: ${TABLE}.AGE ;;
   }
 
   dimension: asset_group_clearcast_codes {
     type: string
+    hidden: yes
     sql: ${TABLE}.ASSET_GROUP_CLEARCAST_CODES ;;
   }
 
   dimension: asset_group_id {
     type: string
-    # hidden: yes
+    hidden: yes
     sql: ${TABLE}.ASSET_GROUP_ID ;;
   }
 
   dimension: asset_id {
     type: string
+    hidden: yes
     sql: ${TABLE}.ASSET_ID ;;
   }
 
@@ -87,6 +92,7 @@ view: impression_fact {
 
   dimension: browser {
     type: string
+    hidden: yes
     sql: ${TABLE}.BROWSER ;;
   }
 
