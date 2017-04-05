@@ -304,7 +304,7 @@ view: impression_fact {
     type:  number
     label: "Gross Spend"
     description: "Gross Spend in Demand Currency: Net Spend * 1 + Agency Fee"
-    sql: ${TABLE}.demand_revenue * (1+($flight_media_details_base.agency_fee)) ;;
+    sql: ${TABLE}.demand_revenue * (1+(flight_media_details_base.agency_fee)) ;;
   }
 
   measure: demand_tracking_cost {
