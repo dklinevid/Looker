@@ -102,8 +102,8 @@ view: impression_fact {
     sql: ${TABLE}.BT_CLUSTER_COST_CURRENCY ;;
   }
 
-  dimension: bt_cluster_cost_markup {
-    type: string
+  measure: bt_cluster_cost_markup {
+    type: sum
     sql: ${TABLE}.BT_CLUSTER_COST_MARKUP ;;
   }
 
@@ -117,8 +117,8 @@ view: impression_fact {
     sql: ${TABLE}.BT_COST_ATTRIBUTE ;;
   }
 
-  dimension: bt_cost_markup {
-    type: string
+  measure: bt_cost_markup {
+    type: sum
     sql: ${TABLE}.BT_COST_MARKUP ;;
   }
 
@@ -127,8 +127,8 @@ view: impression_fact {
     sql: ${TABLE}.BTCOSTCURRENCY ;;
   }
 
-  dimension: btproviderdatacost {
-    type: string
+  measure: btproviderdatacost {
+    type: sum
     sql: ${TABLE}.BTPROVIDERDATACOST ;;
   }
 
@@ -137,23 +137,29 @@ view: impression_fact {
     sql: ${TABLE}.BTPROVIDERID ;;
   }
 
-  dimension: clearing_price {
-    type: string
+  measure: clearing_price {
+    type: average
+    label: "Average Clearing Price"
     sql: ${TABLE}.CLEARING_PRICE ;;
   }
 
-  dimension: click_impressions {
-    type: string
+  measure: click_impressions {
+    type: sum
     sql: ${TABLE}.CLICK_IMPRESSIONS ;;
   }
 
-  dimension: clicks {
-    type: string
+  measure: clicks {
+    type: sum
     sql: ${TABLE}.CLICKS ;;
   }
 
-  dimension: clicktoplay {
-    type: string
+ measure: ctr {
+   type: sum
+  sql: ${TABLE}.CLICKS *1.0/${TABLE}.CLICK_IMPRESSIONS ;;
+ }
+
+  measure: clicktoplay {
+    type: sum
     sql: ${TABLE}.CLICKTOPLAY ;;
   }
 
@@ -177,38 +183,49 @@ view: impression_fact {
     sql: ${TABLE}.COMPANIONS_MEDIA_ID ;;
   }
 
-  dimension: completed_100 {
-    type: string
+  measure: completed_100 {
+    type: sum
     sql: ${TABLE}.COMPLETED_100 ;;
   }
 
-  dimension: completed_25 {
-    type: string
+  measure: VCR {
+    type: sum
+    sql: ${TABLE}.completed_100*1.0/${TABLE}.completed_pct_impressions ;;
+  }
+
+  measure: completed_25 {
+    type: sum
     sql: ${TABLE}.COMPLETED_25 ;;
   }
 
-  dimension: completed_50 {
-    type: string
+  measure: completed_50 {
+    type: sum
     sql: ${TABLE}.COMPLETED_50 ;;
   }
 
-  dimension: completed_75 {
-    type: string
+  measure: completed_75 {
+    type: sum
     sql: ${TABLE}.COMPLETED_75 ;;
   }
 
-  dimension: completed_pct_impressions {
-    type: string
+  measure: completed_pct_impressions {
+    type: sum
     sql: ${TABLE}.COMPLETED_PCT_IMPRESSIONS ;;
   }
 
-  dimension: completion_pct_impressions {
-    type: string
+  measure: completion_pct_impressions {
+    type: sum
     sql: ${TABLE}.COMPLETION_PCT_IMPRESSIONS ;;
   }
 
-  dimension: cost_units {
-    type: string
+  measure: VTR {
+    type: sum
+    sql: ((${TABLE}.completed_25*.25) + (${TABLE}.completed_50 *.50) + (${TABLE}.completed_75 *.75)
+    + (${TABLE}.completed_100 *1.0)) / ${TABLE}.completion_pct_impressions ;;
+  }
+
+  measure: cost_units {
+    type: sum
     sql: ${TABLE}.COST_UNITS ;;
   }
 
@@ -227,18 +244,18 @@ view: impression_fact {
     sql: ${TABLE}.DEAL_CAUSING_HOUSE ;;
   }
 
-  dimension: demand_adserving_cost {
-    type: string
+  measure: demand_adserving_cost {
+    type: sum
     sql: ${TABLE}.DEMAND_ADSERVING_COST ;;
   }
 
-  dimension: demand_bt_cluster_cost {
-    type: string
+  measure: demand_bt_cluster_cost {
+    type: sum
     sql: ${TABLE}.DEMAND_BT_CLUSTER_COST ;;
   }
 
-  dimension: demand_bt_cost {
-    type: string
+  measure: demand_bt_cost {
+    type: sum
     sql: ${TABLE}.DEMAND_BT_COST ;;
   }
 
@@ -247,13 +264,14 @@ view: impression_fact {
     sql: ${TABLE}.DEMAND_CURRENCY ;;
   }
 
-  dimension: demand_demo_cost {
-    type: string
+  measure: demand_demo_cost {
+    type: sum
     sql: ${TABLE}.DEMAND_DEMO_COST ;;
   }
 
-  dimension: demand_payout {
-    type: string
+  measure: demand_payout {
+    type: sum
+    description: "Payout in Demand Currency"
     sql: ${TABLE}.DEMAND_PAYOUT ;;
   }
 
@@ -272,13 +290,22 @@ view: impression_fact {
     sql: ${TABLE}.DEMAND_REGION_UTC_OFFSET ;;
   }
 
-  dimension: demand_revenue {
-    type: string
+  measure: demand_revenue {
+    type: sum
+    label: "Net Spend"
+    description: "Net Spend in Demand Currency"
     sql: ${TABLE}.DEMAND_REVENUE ;;
   }
 
-  dimension: demand_tracking_cost {
-    type: string
+  measure: gross_spend {
+    type:  number
+    label: "Gross Spend"
+    description: "Gross Spend in Demand Currency: Net Spend * 1 + Agency Fee"
+    sql: ${TABLE}.demand_revenue * (1+($flight_media_details_base.agency_fee)) ;;
+  }
+
+  measure: demand_tracking_cost {
+    type: sum
     sql: ${TABLE}.DEMAND_TRACKING_COST ;;
   }
 
@@ -287,8 +314,8 @@ view: impression_fact {
     sql: ${TABLE}.DEMAND_UTC_OFFSET ;;
   }
 
-  dimension: demo_cost_markup {
-    type: string
+  measure: demo_cost_markup {
+    type: sum
     sql: ${TABLE}.DEMO_COST_MARKUP ;;
   }
 
@@ -297,8 +324,8 @@ view: impression_fact {
     sql: ${TABLE}.DEMOCOSTCURRENCY ;;
   }
 
-  dimension: demoproviderdatacost {
-    type: string
+  measure: demoproviderdatacost {
+    type: sum
     sql: ${TABLE}.DEMOPROVIDERDATACOST ;;
   }
 
@@ -312,8 +339,8 @@ view: impression_fact {
     sql: ${TABLE}.DEVICEAID ;;
   }
 
-  dimension: distinct_clicks {
-    type: string
+  measure: distinct_clicks {
+    type: sum
     sql: ${TABLE}.DISTINCT_CLICKS ;;
   }
 
@@ -332,18 +359,19 @@ view: impression_fact {
     sql: ${TABLE}.DVID ;;
   }
 
-  dimension: effective_impressions {
-    type: string
+  measure: effective_impressions {
+    type: sum
     sql: ${TABLE}.EFFECTIVE_IMPRESSIONS ;;
   }
 
-  dimension: effective_units {
-    type: string
+  measure: effective_units {
+    type: sum
     sql: ${TABLE}.EFFECTIVE_UNITS ;;
   }
 
   dimension: eventtime {
-    type: string
+    type: date_second
+    description: "Time of the event stored in UTC"
     sql: ${TABLE}.EVENTTIME ;;
   }
 
@@ -367,8 +395,8 @@ view: impression_fact {
     sql: ${TABLE}.HOUSE_REASON_CODE ;;
   }
 
-  dimension: impressions {
-    type: string
+  measure: impressions {
+    type: sum
     sql: ${TABLE}.IMPRESSIONS ;;
   }
 
@@ -377,38 +405,38 @@ view: impression_fact {
     sql: ${TABLE}.IP ;;
   }
 
-  dimension: is_viewability_measurable {
-    type: string
+  measure: is_viewability_measurable {
+    type: sum
     sql: ${TABLE}.IS_VIEWABILITY_MEASURABLE ;;
   }
 
-  dimension: is_viewability_satisfied {
-    type: string
+  measure: is_viewability_satisfied {
+    type: sum
     sql: ${TABLE}.IS_VIEWABILITY_SATISFIED ;;
   }
 
-  dimension: is_viewable_100 {
-    type: string
+  measure: is_viewable_100 {
+    type: sum
     sql: ${TABLE}.IS_VIEWABLE_100 ;;
   }
 
-  dimension: is_viewable_25 {
-    type: string
+  measure: is_viewable_25 {
+    type: sum
     sql: ${TABLE}.IS_VIEWABLE_25 ;;
   }
 
-  dimension: is_viewable_50 {
-    type: string
+  measure: is_viewable_50 {
+    type: sum
     sql: ${TABLE}.IS_VIEWABLE_50 ;;
   }
 
-  dimension: is_viewable_75 {
-    type: string
+  measure: is_viewable_75 {
+    type: sum
     sql: ${TABLE}.IS_VIEWABLE_75 ;;
   }
 
-  dimension: is_viewable_start {
-    type: string
+  measure: is_viewable_start {
+    type: sum
     sql: ${TABLE}.IS_VIEWABLE_START ;;
   }
 
@@ -422,18 +450,19 @@ view: impression_fact {
     sql: ${TABLE}.LANGUAGE_ID ;;
   }
 
-  dimension: media_markup {
-    type: string
+  measure: media_markup {
+    type: sum
     sql: ${TABLE}.MEDIA_MARKUP ;;
   }
 
-  dimension: media_price {
-    type: string
+  measure: media_price {
+    type: average
+    label: "Average Media Price"
     sql: ${TABLE}.MEDIA_PRICE ;;
   }
 
-  dimension: muted {
-    type: string
+  measure: muted {
+    type: sum
     sql: ${TABLE}.MUTED ;;
   }
 
@@ -442,8 +471,9 @@ view: impression_fact {
     sql: ${TABLE}.NORMALIZED_DOMAIN ;;
   }
 
-  dimension: payout {
-    type: string
+  measure: payout {
+    type: sum
+    description: "Payout in Supply (Payout) Currency"
     sql: ${TABLE}.PAYOUT ;;
   }
 
@@ -477,8 +507,8 @@ view: impression_fact {
     sql: ${TABLE}.PLATFORM ;;
   }
 
-  dimension: platform_markup {
-    type: string
+  measure: platform_markup {
+    type: sum
     sql: ${TABLE}.PLATFORM_MARKUP ;;
   }
 
@@ -502,8 +532,8 @@ view: impression_fact {
     sql: ${TABLE}.POSTALCODE_PROVIDER ;;
   }
 
-  dimension: primary_clicks {
-    type: string
+  measure: primary_clicks {
+    type: sum
     sql: ${TABLE}.PRIMARY_CLICKS ;;
   }
 
@@ -522,13 +552,14 @@ view: impression_fact {
     sql: ${TABLE}.REFERRING_URL ;;
   }
 
-  dimension: revenue {
-    type: string
+  measure: revenue {
+    type: sum
     sql: ${TABLE}.REVENUE ;;
   }
 
-  dimension: revenue_cpu {
-    type: string
+  measure: revenue_cpu {
+    type: average
+    label: "Average CPU"
     sql: ${TABLE}.REVENUE_CPU ;;
   }
 
@@ -542,8 +573,8 @@ view: impression_fact {
     sql: ${TABLE}.RPU_TYPE ;;
   }
 
-  dimension: skipped {
-    type: string
+  measure: skipped {
+    type: sum
     sql: ${TABLE}.SKIPPED ;;
   }
 
@@ -577,8 +608,8 @@ view: impression_fact {
     sql: ${TABLE}.SUPPLY_UTC_OFFSET ;;
   }
 
-  dimension: tracking_cost {
-    type: string
+  measure: tracking_cost {
+    type: sum
     sql: ${TABLE}.TRACKING_COST ;;
   }
 
@@ -587,13 +618,13 @@ view: impression_fact {
     sql: ${TABLE}.TRACKING_COST_CURRENCY ;;
   }
 
-  dimension: tracking_cost_markup {
-    type: string
+  measure: tracking_cost_markup {
+    type: sum
     sql: ${TABLE}.TRACKING_COST_MARKUP ;;
   }
 
-  dimension: units {
-    type: string
+  measure: units {
+    type: sum
     sql: ${TABLE}.UNITS ;;
   }
 
