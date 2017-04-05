@@ -4,7 +4,7 @@ view: impression_fact {
 
   dimension: ad_buyer_id {
     type: string
-    hidden: yes
+    hidden: no
     sql: ${TABLE}.AD_BUYER_ID ;;
   }
 
@@ -16,7 +16,7 @@ view: impression_fact {
 
   dimension: adid {
     type: string
-    hidden: yes
+    hidden: no
     sql: ${TABLE}.ADID ;;
   }
 
@@ -39,25 +39,25 @@ view: impression_fact {
 
   dimension: age {
     type: string
-    hidden: yes
+    hidden: no
     sql: ${TABLE}.AGE ;;
   }
 
   dimension: asset_group_clearcast_codes {
     type: string
-    hidden: yes
+    hidden: no
     sql: ${TABLE}.ASSET_GROUP_CLEARCAST_CODES ;;
   }
 
   dimension: asset_group_id {
     type: string
-    hidden: yes
+    hidden: no
     sql: ${TABLE}.ASSET_GROUP_ID ;;
   }
 
   dimension: asset_id {
     type: string
-    hidden: yes
+    hidden: no
     sql: ${TABLE}.ASSET_ID ;;
   }
 
@@ -68,7 +68,7 @@ view: impression_fact {
 
   dimension: awsregion {
     type: string
-    hidden: yes
+    hidden: no
     sql: ${TABLE}.AWSREGION ;;
   }
 
@@ -94,7 +94,7 @@ view: impression_fact {
 
   dimension: browser {
     type: string
-    hidden: yes
+    hidden: no
     sql: ${TABLE}.BROWSER ;;
   }
 
@@ -106,7 +106,7 @@ view: impression_fact {
 
   dimension: bt_cluster_cost_attribute {
     type: string
-    hidden: yes
+    hidden: no
     sql: ${TABLE}.BT_CLUSTER_COST_ATTRIBUTE ;;
   }
 
@@ -123,13 +123,13 @@ view: impression_fact {
 
   dimension: bt_cluster_provider {
     type: string
-    hidden: yes
+    hidden: no
     sql: ${TABLE}.BT_CLUSTER_PROVIDER ;;
   }
 
   dimension: bt_cost_attribute {
     type: string
-    hidden: yes
+    hidden: no
     sql: ${TABLE}.BT_COST_ATTRIBUTE ;;
   }
 
@@ -152,7 +152,7 @@ view: impression_fact {
 
   dimension: btproviderid {
     type: string
-    hidden: yes
+    hidden: no
     sql: ${TABLE}.BTPROVIDERID ;;
   }
 
@@ -186,25 +186,25 @@ view: impression_fact {
 
   dimension: clock_clearcast_codes {
     type: string
-    hidden: yes
+    hidden: no
     sql: ${TABLE}.CLOCK_CLEARCAST_CODES ;;
   }
 
   dimension: clock_number {
     type: string
-    hidden: yes
+    hidden: no
     sql: ${TABLE}.CLOCK_NUMBER ;;
   }
 
   dimension: clusterid {
     type: string
-    hidden: yes
+    hidden: no
     sql: ${TABLE}.CLUSTERID ;;
   }
 
   dimension: companions_media_id {
     type: string
-    hidden: yes
+    hidden: no
     sql: ${TABLE}.COMPANIONS_MEDIA_ID ;;
   }
 
@@ -260,19 +260,19 @@ view: impression_fact {
 
   dimension: country {
     type: string
-    hidden: yes
+    hidden: no
     sql: ${TABLE}.COUNTRY ;;
   }
 
   dimension: daypart {
     type: string
-    hidden: yes
+    hidden: no
     sql: ${TABLE}.DAYPART ;;
   }
 
   dimension: deal_causing_house {
     type: string
-    hidden: yes
+    hidden: no
     sql: ${TABLE}.DEAL_CAUSING_HOUSE ;;
   }
 
@@ -310,7 +310,7 @@ view: impression_fact {
 
   dimension: demand_platform_client_group_id {
     type: string
-    hidden: yes
+    hidden: no
     sql: ${TABLE}.DEMAND_PLATFORM_CLIENT_GROUP_ID ;;
   }
 
@@ -321,7 +321,7 @@ view: impression_fact {
 
   dimension: demand_region_utc_offset {
     type: string
-    hidden: yes
+    hidden: no
     sql: ${TABLE}.DEMAND_REGION_UTC_OFFSET ;;
   }
 
@@ -349,7 +349,7 @@ view: impression_fact {
 
   dimension: demand_utc_offset {
     type: string
-    hidden: yes
+    hidden: no
     sql: ${TABLE}.DEMAND_UTC_OFFSET ;;
   }
 
@@ -372,13 +372,13 @@ view: impression_fact {
 
   dimension: demoproviderid {
     type: string
-    hidden: yes
+    hidden: no
     sql: ${TABLE}.DEMOPROVIDERID ;;
   }
 
   dimension: deviceaid {
     type: string
-    hidden: yes
+    hidden: no
     sql: ${TABLE}.DEVICEAID ;;
   }
 
@@ -389,19 +389,19 @@ view: impression_fact {
 
   dimension: domain_hash {
     type: string
-    hidden: yes
+    hidden: no
     sql: ${TABLE}.DOMAIN_HASH ;;
   }
 
   dimension: domain_url {
     type: string
-    hidden: yes
+    hidden: no
     sql: ${TABLE}.DOMAIN_URL ;;
   }
 
   dimension: dvid {
     type: string
-    hidden: yes
+    hidden: no
     sql: ${TABLE}.DVID ;;
   }
 
@@ -417,7 +417,7 @@ view: impression_fact {
 
   dimension: eventtime {
     type: date_second
-    hidden: yes
+    hidden: no
     description: "Time of the event stored in UTC"
     sql: ${TABLE}.EVENTTIME ;;
   }
@@ -429,19 +429,19 @@ view: impression_fact {
 
   dimension: gender {
     type: string
-    hidden: yes
+    hidden: no
     sql: ${TABLE}.GENDER ;;
   }
 
   dimension: geo {
     type: string
-    hidden: yes
+    hidden: no
     sql: ${TABLE}.GEO ;;
   }
 
   dimension: house_reason_code {
     type: string
-    hidden: yes
+    hidden: no
     sql: ${TABLE}.HOUSE_REASON_CODE ;;
   }
 
@@ -452,7 +452,7 @@ view: impression_fact {
 
   dimension: ip {
     type: string
-    hidden: yes
+    hidden: no
     sql: ${TABLE}.IP ;;
   }
 
@@ -493,13 +493,13 @@ view: impression_fact {
 
   dimension: isp {
     type: string
-    hidden: yes
+    hidden: no
     sql: ${TABLE}.ISP ;;
   }
 
   dimension: language_id {
     type: string
-    hidden: yes
+    hidden: no
     sql: ${TABLE}.LANGUAGE_ID ;;
   }
 
@@ -522,7 +522,7 @@ view: impression_fact {
 
   dimension: normalized_domain {
     type: string
-    hidden: yes
+    hidden: no
     sql: ${TABLE}.NORMALIZED_DOMAIN ;;
   }
 
@@ -540,19 +540,19 @@ view: impression_fact {
 
   dimension: payout_type {
     type: string
-    hidden: yes
+    hidden: no
     sql: ${TABLE}.PAYOUT_TYPE ;;
   }
 
   dimension: pdata1 {
     type: string
-    hidden: yes
+    hidden: no
     sql: ${TABLE}.PDATA1 ;;
   }
 
   dimension: pdata2 {
     type: string
-    hidden: yes
+    hidden: no
     sql: ${TABLE}.PDATA2 ;;
   }
 
@@ -563,7 +563,7 @@ view: impression_fact {
 
   dimension: platform {
     type: string
-    hidden: yes
+    hidden: no
     sql: ${TABLE}.PLATFORM ;;
   }
 
@@ -575,25 +575,25 @@ view: impression_fact {
 
   dimension: player_size {
     type: string
-    hidden: yes
+    hidden: no
     sql: ${TABLE}.PLAYER_SIZE ;;
   }
 
   dimension: poc {
     type: string
-    hidden: yes
+    hidden: no
     sql: ${TABLE}.POC ;;
   }
 
   dimension: postalcode {
     type: string
-    hidden: yes
+    hidden: no
     sql: ${TABLE}.POSTALCODE ;;
   }
 
   dimension: postalcode_provider {
     type: string
-    hidden: yes
+    hidden: no
     sql: ${TABLE}.POSTALCODE_PROVIDER ;;
   }
 
@@ -604,19 +604,19 @@ view: impression_fact {
 
   dimension: processingid {
     type: string
-    hidden: yes
+    hidden: no
     sql: ${TABLE}.PROCESSINGID ;;
   }
 
   dimension: pub_tracking_id {
     type: string
-    hidden: yes
+    hidden: no
     sql: ${TABLE}.PUB_TRACKING_ID ;;
   }
 
   dimension: referring_url {
     type: string
-    hidden: yes
+    hidden: no
     sql: ${TABLE}.REFERRING_URL ;;
   }
 
@@ -650,37 +650,37 @@ view: impression_fact {
 
   dimension: social_ab {
     type: string
-    hidden: yes
+    hidden: no
     sql: ${TABLE}.SOCIAL_AB ;;
   }
 
   dimension: social_abc {
     type: string
-    hidden: yes
+    hidden: no
     sql: ${TABLE}.SOCIAL_ABC ;;
   }
 
   dimension: supply_platform_client_group_id {
     type: string
-    hidden: yes
+    hidden: no
     sql: ${TABLE}.SUPPLY_PLATFORM_CLIENT_GROUP_ID ;;
   }
 
   dimension: supply_platform_client_id {
     type: string
-    hidden: yes
+    hidden: no
     sql: ${TABLE}.SUPPLY_PLATFORM_CLIENT_ID ;;
   }
 
   dimension: supply_region_utc_offset {
     type: string
-    hidden: yes
+    hidden: no
     sql: ${TABLE}.SUPPLY_REGION_UTC_OFFSET ;;
   }
 
   dimension: supply_utc_offset {
     type: string
-    hidden: yes
+    hidden: no
     sql: ${TABLE}.SUPPLY_UTC_OFFSET ;;
   }
 
@@ -708,25 +708,25 @@ view: impression_fact {
 
   dimension: userid {
     type: string
-    hidden: yes
+    hidden: no
     sql: ${TABLE}.USERID ;;
   }
 
   dimension: version_no {
     type: string
-    hidden: yes
+    hidden: no
     sql: ${TABLE}.VERSION_NO ;;
   }
 
   dimension: viewability_measurable_code {
     type: string
-    hidden: yes
+    hidden: no
     sql: ${TABLE}.VIEWABILITY_MEASURABLE_CODE ;;
   }
 
   measure: count {
     type: count
-    hidden: yes
+    hidden: no
     drill_fields: [asset_group.asset_group_id, asset_group.asset_group_name]
   }
 }

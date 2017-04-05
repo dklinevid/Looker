@@ -7,6 +7,7 @@ include: "*.view"
 include: "*.dashboard"
 
 explore: impression_fact {
+
   join: flight_media_details_base {
     relationship: many_to_one
     sql_on: ${flight_media_details_base.flight_media_id} = ${impression_fact.flight_media_id} ;;
@@ -16,6 +17,7 @@ explore: impression_fact {
     relationship: many_to_one
     sql_on: ${placement_details_base.placement_id} = ${impression_fact.placement_id} ;;
   }
+
 }
 
 explore: flight_details {

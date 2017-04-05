@@ -258,7 +258,7 @@ view: placement_details_base {
 
   dimension: placement_integration_type_id {
     type: string
-    # hidden: yes
+    # hidden: no
     sql: ${TABLE}.PLACEMENT_INTEGRATION_TYPE_ID ;;
   }
 
@@ -279,7 +279,7 @@ view: placement_details_base {
 
   dimension: placement_inventory_type_id {
     type: string
-    # hidden: yes
+    # hidden: no
     sql: ${TABLE}.PLACEMENT_INVENTORY_TYPE_ID ;;
   }
 
@@ -320,7 +320,7 @@ view: placement_details_base {
 
   dimension: placement_status_id {
     type: string
-    # hidden: yes
+    # hidden: no
     sql: ${TABLE}.PLACEMENT_STATUS_ID ;;
   }
 
@@ -351,7 +351,7 @@ view: placement_details_base {
 
   dimension: platform_client_id {
     type: string
-    # hidden: yes
+    # hidden: no
     sql: ${TABLE}.PLATFORM_CLIENT_ID ;;
   }
 

@@ -203,7 +203,7 @@ view: flight_media_details_base {
 
   dimension: media_type_id {
     type: string
-    # hidden: yes
+    # hidden: no
     sql: ${TABLE}.MEDIA_TYPE_ID ;;
   }
 
