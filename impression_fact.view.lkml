@@ -8,6 +8,7 @@ view: impression_fact {
 
   measure: addon_product_cost {
     type: sum
+    value_format: "#.00;(#.00)"
     sql: ${TABLE}.ADDON_PRODUCT_COST ;;
   }
 
@@ -18,6 +19,7 @@ view: impression_fact {
 
   measure: adserving_cost {
     type: sum
+    value_format: "#.00;(#.00)"
     sql: ${TABLE}.ADSERVING_COST ;;
   }
 
@@ -28,6 +30,7 @@ view: impression_fact {
 
   measure: adserving_cost_markup {
     type: sum
+    value_format: "#.00;(#.00)"
     sql: ${TABLE}.ADSERVING_COST_MARKUP ;;
   }
 
@@ -89,6 +92,7 @@ view: impression_fact {
 
   measure: bt_cluster_cost {
     type: sum
+    value_format: "#.00;(#.00)"
     sql: ${TABLE}.BT_CLUSTER_COST ;;
   }
 
@@ -104,6 +108,7 @@ view: impression_fact {
 
   measure: bt_cluster_cost_markup {
     type: sum
+    value_format: "#.00;(#.00)"
     sql: ${TABLE}.BT_CLUSTER_COST_MARKUP ;;
   }
 
@@ -119,6 +124,7 @@ view: impression_fact {
 
   measure: bt_cost_markup {
     type: sum
+    value_format: "#.00;(#.00)"
     sql: ${TABLE}.BT_COST_MARKUP ;;
   }
 
@@ -129,6 +135,7 @@ view: impression_fact {
 
   measure: btproviderdatacost {
     type: sum
+    value_format: "#.00;(#.00)"
     sql: ${TABLE}.BTPROVIDERDATACOST ;;
   }
 
@@ -140,6 +147,7 @@ view: impression_fact {
   measure: clearing_price {
     type: average
     label: "Average Clearing Price"
+    value_format: "#.00;(#.00)"
     sql: ${TABLE}.CLEARING_PRICE ;;
   }
 
@@ -192,6 +200,7 @@ view: impression_fact {
   measure: VCR {
     type: sum
     label: "VCR"
+    value_format: "0.00%"
     sql: ${TABLE}.completed_100*1.0/${TABLE}.completed_pct_impressions ;;
   }
 
@@ -223,6 +232,7 @@ view: impression_fact {
   measure: VTR {
     type: sum
     label: "VTR"
+    value_format: "0.00%"
     sql: ((${TABLE}.completed_25*.25) + (${TABLE}.completed_50 *.50) + (${TABLE}.completed_75 *.75)
     + (${TABLE}.completed_100 *1.0)) / ${TABLE}.completion_pct_impressions ;;
   }
@@ -275,6 +285,7 @@ view: impression_fact {
   measure: demand_payout {
     type: sum
     description: "Payout in Demand Currency"
+    value_format: "#.00;(#.00)"
     sql: ${TABLE}.DEMAND_PAYOUT ;;
   }
 
@@ -297,6 +308,7 @@ view: impression_fact {
     type: sum
     label: "Net Spend"
     description: "Net Spend in Demand Currency"
+    value_format: "#.00;(#.00)"
     sql: ${TABLE}.DEMAND_REVENUE ;;
   }
 
@@ -304,11 +316,13 @@ view: impression_fact {
     type:  sum
     label: "Gross Spend"
     description: "Gross Spend in Demand Currency: Net Spend * 1 + Agency Fee"
+    value_format: "#.00;(#.00)"
     sql: ${TABLE}.demand_revenue * (1+(flight_media_details_base.agency_fee)) ;;
   }
 
   measure: demand_tracking_cost {
     type: sum
+    value_format: "#.00;(#.00)"
     sql: ${TABLE}.DEMAND_TRACKING_COST ;;
   }
 
@@ -319,6 +333,7 @@ view: impression_fact {
 
   measure: demo_cost_markup {
     type: sum
+    value_format: "#.00;(#.00)"
     sql: ${TABLE}.DEMO_COST_MARKUP ;;
   }
 
@@ -329,6 +344,7 @@ view: impression_fact {
 
   measure: demoproviderdatacost {
     type: sum
+    value_format: "#.00;(#.00)"
     sql: ${TABLE}.DEMOPROVIDERDATACOST ;;
   }
 
@@ -461,6 +477,7 @@ view: impression_fact {
   measure: media_price {
     type: average
     label: "Average Media Price"
+    value_format: "#.00;(#.00)"
     sql: ${TABLE}.MEDIA_PRICE ;;
   }
 
@@ -477,6 +494,7 @@ view: impression_fact {
   measure: payout {
     type: sum
     description: "Payout in Supply (Payout) Currency"
+    value_format: "#.00;(#.00)"
     sql: ${TABLE}.PAYOUT ;;
   }
 
@@ -512,6 +530,7 @@ view: impression_fact {
 
   measure: platform_markup {
     type: sum
+    value_format: "#.00;(#.00)"
     sql: ${TABLE}.PLATFORM_MARKUP ;;
   }
 
@@ -557,12 +576,14 @@ view: impression_fact {
 
   measure: revenue {
     type: sum
+    value_format: "#.00;(#.00)"
     sql: ${TABLE}.REVENUE ;;
   }
 
   measure: revenue_cpu {
     type: average
     label: "Average CPU"
+    value_format: "#.00;(#.00)"
     sql: ${TABLE}.REVENUE_CPU ;;
   }
 
@@ -613,6 +634,7 @@ view: impression_fact {
 
   measure: tracking_cost {
     type: sum
+    value_format: "#.00;(#.00)"
     sql: ${TABLE}.TRACKING_COST ;;
   }
 
@@ -623,6 +645,7 @@ view: impression_fact {
 
   measure: tracking_cost_markup {
     type: sum
+    value_format: "#.00;(#.00)"
     sql: ${TABLE}.TRACKING_COST_MARKUP ;;
   }
 
