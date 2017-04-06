@@ -7,6 +7,7 @@ include: "*.view"
 include: "*.dashboard"
 
 explore: impression_fact {
+label: "Impression Metrics"
 
   join: flight_media_details_base {
     relationship: many_to_one
@@ -18,6 +19,10 @@ explore: impression_fact {
     sql_on: ${placement_details_base.placement_id} = ${impression_fact.placement_id} ;;
   }
 
+  join:  geodata{
+    relationship: many_to_one
+    sql_on: ${geodata.geoid} = ${impression_fact.geo} ;;
+  }
 }
 
 explore: flight_details {

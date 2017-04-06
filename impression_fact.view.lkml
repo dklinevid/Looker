@@ -586,7 +586,7 @@ view: impression_fact {
   }
 
   dimension: postalcode {
-    type: string
+    type: zipcode
     hidden: no
     sql: ${TABLE}.POSTALCODE ;;
   }
