@@ -809,7 +809,7 @@ view: impression_fact {
 
   dimension: eventtime {
     type: date_time
-    hidden: yes
+    #hidden: yes
     description: "Time of the event stored in UTC"
     sql: ${TABLE}.EVENTTIME ;;
   }
