@@ -1,6 +1,7 @@
 view: daily_bt_acquisition {
   sql_table_name: DATAOPS.DAILY_BT_ACQUISITION ;;
 
+
   measure: cookies {
     type: sum
     sql: ${TABLE}.COOKIES ;;
@@ -30,6 +31,12 @@ view: daily_bt_acquisition {
   dimension: retargeting_attribute_id {
     type: number
     sql: ${TABLE}.RETARGETING_ATTRIBUTE_ID ;;
+  }
+
+
+  measure: count {
+    type: count
+    drill_fields: []
   }
 
 }
