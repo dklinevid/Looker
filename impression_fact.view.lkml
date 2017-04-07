@@ -886,6 +886,22 @@ view: impression_fact {
     sql: ${demand_date} ;;
   }
 
+  dimension: supply_date {
+    type: date_second
+    hidden: yes
+    description: "Time of the event stored in the supply timezone"
+    sql: dateadd(h,${TABLE}.SUPPLY_UTC_OFFSET,${TABLE}.EVENTTIME) ;;
+  }
+
+  dimension_group: Supply_Date {
+    type: time
+    label: "Supply"
+    view_label: "Dates"
+    timeframes: [time,date,month,year]
+    description: "The date/time of the impression in the supply timezone"
+    sql: ${supply_date} ;;
+  }
+
   dimension: flight_media_id {
     type: string
     #hidden: yes
