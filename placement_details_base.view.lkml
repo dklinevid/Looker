@@ -1,28 +1,36 @@
 view: placement_details_base {
+  label: "Placement"
   sql_table_name: DIM.PLACEMENT_DETAILS_BASE ;;
 
   dimension: account_executive_name {
     type: string
+    view_label: "Partner"
     sql: ${TABLE}.ACCOUNT_EXECUTIVE_NAME ;;
   }
 
   dimension: accounting_subsidiary_id {
     type: string
+    hidden: yes
     sql: ${TABLE}.ACCOUNTING_SUBSIDIARY_ID ;;
   }
 
   dimension: audit_factor {
     type: string
+    hidden: yes
     sql: ${TABLE}.AUDIT_FACTOR ;;
   }
 
   dimension: business_region {
     type: string
+    view_label: "Partner"
+    label: "Partner Business Region"
+    description: "The business region of the Supply Partner"
     sql: ${TABLE}.BUSINESS_REGION ;;
   }
 
   dimension: business_region_id {
     type: string
+    hidden: yes
     sql: ${TABLE}.BUSINESS_REGION_ID ;;
   }
 
