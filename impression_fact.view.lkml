@@ -20,7 +20,7 @@ view: impression_fact {
     type: sum
     label: "Addon Product Cost"
     description: "The total of all costs for add-ons"
-    value_format: "#.00;(#.00)"
+    value_format_name: decimal_2
     sql: ${addon_product_cost} ;;
   }
 
@@ -28,7 +28,7 @@ view: impression_fact {
     type: average
     label: "Average Addon Product Costs"
     description: "The average of all costs for add-ons"
-    value_format: "#.00;(#.00)"
+    value_format_name: decimal_2
     sql: ${addon_product_cost} ;;
   }
 
@@ -51,7 +51,7 @@ view: impression_fact {
     type: sum
     label: "Adserving Costs"
     description: "Total of all Adserving Costs"
-    value_format: "#.00;(#.00)"
+    value_format_name: decimal_2
     sql: ${adserving_cost} ;;
   }
 
@@ -70,7 +70,7 @@ view: impression_fact {
     type: sum
     label: "Adserving Cost Markup"
     description: "Total of all markup costs on adserving"
-    value_format: "#.00;(#.00)"
+    value_format_name: decimal_2
     sql: ${adserving_cost_markup} ;;
   }
 
@@ -115,6 +115,7 @@ view: impression_fact {
     type: sum
     description: "Total of all impressions which were autoplay impressions"
     label: "Autoplay"
+    value_format_name: decimal_2
     sql: ${autoplay} ;;
   }
 
@@ -188,7 +189,7 @@ view: impression_fact {
     #hidden: no
     view_label: "Impression Facets"
     description: "The browser which was used to view the impression"
-    sql: ${TABLE}.BROWSER ;;
+    sql: prod.public.f_attr_lookup(${TABLE}.BROWSER) ;;
   }
 
   dimension: bt_cluster_cost {
@@ -855,6 +856,7 @@ view: impression_fact {
 
   dimension: flight_media_id {
     type: string
+    #hidden: yes
     view_label: "Impression Facets"
     label: "Flight Media ID"
     description: "The ID of the flight media that was served in the impression."
@@ -904,46 +906,149 @@ view: impression_fact {
     sql: ${TABLE}.IP ;;
   }
 
-  measure: is_viewability_measurable {
-    type: sum
+  dimension: is_viewability_measurable {
+    type: number
     hidden: yes
     sql: ${TABLE}.IS_VIEWABILITY_MEASURABLE ;;
   }
 
-  measure: is_viewability_satisfied {
+  measure: sum_is_viewability_measurable {
     type: sum
+    label: "Viewablity Measurable"
+    description: "The total of all impressions where viewablity is measurable"
+    value_format_name: decimal_0
+    sql: ${is_viewability_measurable} ;;
+  }
+
+  dimension: is_viewability_satisfied {
+    type: number
     hidden: yes
     sql: ${TABLE}.IS_VIEWABILITY_SATISFIED ;;
   }
 
-  measure: is_viewable_100 {
+  measure: sum_is_viewability_satisfied {
     type: sum
+    label: "Viewablity Satisfied"
+    description: "The total of all impressions where viewablity criteria was satisfied"
+    value_format_name: decimal_0
+    sql: ${is_viewability_satisfied} ;;
+  }
+
+  dimension: is_viewable_100 {
+    type: number
     hidden: yes
     sql: ${TABLE}.IS_VIEWABLE_100 ;;
   }
 
-  measure: is_viewable_25 {
+  measure: sum_is_viewable_100 {
     type: sum
+    label: "Viewable 100"
+    description: "The number of impressions that were viewable for 100% of the impression."
+    value_format_name: decimal_0
+    sql: ${is_viewable_100} ;;
+  }
+
+  measure: pct_is_viewable_100 {
+    type: sum
+    label: "Viewable 100%"
+    description: "The percent of impressions that were viewable for 100% of the impression."
+    value_format_name: decimal_2
+    sql: 1.0 * ${is_viewable_100} / nullif(${is_viewability_measurable},0);;
+  }
+
+  dimension: is_viewable_25 {
+    type: number
     hidden: yes
     sql: ${TABLE}.IS_VIEWABLE_25 ;;
   }
 
-  measure: is_viewable_50 {
+  measure: sum_is_viewable_25 {
     type: sum
+    label: "Viewable 25"
+    description: "The number of impressions that were viewable for 25% of the impression."
+    value_format_name: decimal_0
+    sql: ${is_viewable_25} ;;
+  }
+
+  measure: pct_is_viewable_25 {
+    type: sum
+    label: "Viewable 25%"
+    description: "The percent of impressions that were viewable for 25% of the impression."
+    value_format_name: decimal_2
+    sql: 1.0 * ${is_viewable_25} / nullif(${is_viewability_measurable},0);;
+  }
+
+  dimension: is_viewable_50 {
+    type: number
     hidden: yes
     sql: ${TABLE}.IS_VIEWABLE_50 ;;
   }
 
-  measure: is_viewable_75 {
+  measure: sum_is_viewable_50 {
     type: sum
+    label: "Viewable 50"
+    description: "The number of impressions that were viewable for 50% of the impression."
+    value_format_name: decimal_0
+    sql: ${is_viewable_50} ;;
+  }
+
+  measure: pct_is_viewable_50 {
+    type: sum
+    label: "Viewable 50%"
+    description: "The percent of impressions that were viewable for 50% of the impression."
+    value_format_name: decimal_2
+    sql: 1.0 * ${is_viewable_50} / nullif(${is_viewability_measurable},0);;
+  }
+
+  dimension: is_viewable_75 {
+    type: number
     hidden: yes
     sql: ${TABLE}.IS_VIEWABLE_75 ;;
   }
 
-  measure: is_viewable_start {
+  measure: sum_is_viewable_75 {
     type: sum
+    label: "Viewable 75"
+    description: "The number of impressions that were viewable for 75% of the impression."
+    value_format_name: decimal_0
+    sql: ${is_viewable_75} ;;
+  }
+
+  measure: pct_is_viewable_75 {
+    type: sum
+    label: "Viewable 75%"
+    description: "The percent of impressions that were viewable for 75% of the impression.."
+    value_format_name: decimal_2
+    sql: 1.0 * ${is_viewable_75} / nullif(${is_viewability_measurable},0);;
+  }
+
+  dimension: is_viewable_start {
+    type: number
     hidden: yes
     sql: ${TABLE}.IS_VIEWABLE_START ;;
+  }
+
+  measure: sum_is_viewable_start {
+    type: sum
+    label: "Viewable Impressions"
+    description: "The number of impressions that were viewable at the start of the impression."
+    sql: ${is_viewable_start} ;;
+  }
+
+  measure: non_viewable_impressions {
+    type: sum
+    label: "Non-viewable Impressions"
+    description: "The total of imressions where viewablity was measurable but the impressions where not viewable."
+    value_format_name: decimal_0
+    sql:  ${is_viewability_measurable} - ${is_viewability_satisfied} ;;
+  }
+
+  measure: viewablity_rate {
+    type: number
+    label: "Viewablity Rate"
+    description: "For impressions where viewablity is measurable, the percent of impressions where the viewablity criteria is staisfied."
+    value_format_name: percent_2
+    sql:COALESCE(1.0 * ${is_viewability_satisfied} / nullif(${is_viewability_measurable},0) 0) ;;
   }
 
   dimension: isp {
@@ -961,67 +1066,119 @@ view: impression_fact {
     sql: ${TABLE}.LANGUAGE_ID ;;
   }
 
-  measure: media_markup {
-    type: sum
+  dimension: media_markup {
+    type: number
+    hidden: yes
     sql: ${TABLE}.MEDIA_MARKUP ;;
+}
+  measure: sum_media_markup {
+    type: sum
+    label: "Media Markup"
+    description: "The total markup on media."
+    value_format_name: decimal_2
+    sql: ${media_markup} ;;
   }
 
-  measure: media_price {
-    type: average
-    label: "Average Media Price"
-    value_format: "#.00;(#.00)"
+  dimension: media_price {
+    type: number
+    hidden: yes
     sql: ${TABLE}.MEDIA_PRICE ;;
   }
 
-  measure: muted {
+  measure: sum_media_price {
     type: sum
+    label: "Media Price"
+    value_format_name: decimal_2
+    description: "The total price of media."
+    sql: ${media_price} ;;
+  }
+
+  measure: avg_media_price {
+    type: average
+    label: "Average Media Price"
+    value_format_name: decimal_2
+    description: "The average price of all media."
+    sql: ${media_price} ;;
+  }
+
+  dimension: muted {
+    type: number
+    hidden: yes
     sql: ${TABLE}.MUTED ;;
+  }
+
+  measure: sum_muted {
+    type: sum
+    label: "Muted"
+    description: "The total of all impressions which were muted during viewing of the impression,"
+    sql: ${muted} ;;
   }
 
   dimension: normalized_domain {
     type: string
-    hidden: no
+    label: "Normalized Domain"
+    view_label: "Impression Facets"
+    description: "The normalized domain of the URL where the impression was viewed."
     sql: ${TABLE}.NORMALIZED_DOMAIN ;;
   }
 
-  measure: payout {
+  dimension: payout {
+    type: number
+    hidden: yes
+    sql: ${TABLE}.PAYOUT ;;
+  }
+
+  measure: sum_payout {
     type: sum
-    description: "Payout in Supply (Payout) Currency"
-    value_format: "#.00;(#.00)"
+    label: "Gross Payout"
+    description: "The total amount due to the Publisher for the media in the Publisher's (supply) currency."
+    value_format_name: decimal_2
     sql: ${TABLE}.PAYOUT ;;
   }
 
   dimension: payout_currency {
     type: string
+    label: "Payout Currency"
+    description: "The Publisher's (supply) currency."
     sql: ${TABLE}.PAYOUT_CURRENCY ;;
   }
 
   dimension: payout_type {
     type: string
     hidden: no
+    view_label: "Impression Facets"
+    label: "Payout Type"
+    description: "The type of payout to the Publisher."
     sql: ${TABLE}.PAYOUT_TYPE ;;
   }
 
   dimension: pdata1 {
     type: string
+    view_label: "Impression Facets"
+    label: "PD1"
+    description: "Passed Data 1 - A text field that allows the publisher to pass data back when serving the impression."
     hidden: no
     sql: ${TABLE}.PDATA1 ;;
   }
 
   dimension: pdata2 {
     type: string
+    view_label: "Impression Facets"
+    label: "PD2"
+    description: "Passed Data 2 - A second text field that allows the publisher to pass data back when serving the impression."
     hidden: no
     sql: ${TABLE}.PDATA2 ;;
   }
 
   dimension: placement_id {
     type: string
+    hidden: yes
     sql: ${TABLE}.PLACEMENT_ID ;;
   }
 
   dimension: platform {
     type: string
-    hidden: no
+    hidden: yes
     sql: ${TABLE}.PLATFORM ;;
   }
 
