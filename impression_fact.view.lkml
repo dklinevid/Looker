@@ -418,15 +418,23 @@ view: impression_fact {
     label: "Completed 25"
     description: "The total of all impression which were 25% completed."
     value_format_name: decimal_0
-    sql: ${completed_25};;
+    sql: ${completed_25} + ${completed_50} + ${completed_75} + ${completed_100};;
   }
 
-  measure: sum_completed_25_pct {
+  measure: abs_completed_25 {
+    type: sum
+    description: "The sum of completed 25 used in calculating VCR."
+    hidden: yes
+    value_format_name: decimal_0
+    sql: ${completed_25} ;;
+  }
+
+  measure: completed_25_pct {
     type: number
     label: "Completed 25%"
     description: "The percentage of all impression which were 25% completed."
     value_format_name: percent_2
-    sql: COALESCE(1.0* ${sum_completed_25} /nullif(${sum_completion_pct_impressions},0),0);;
+    sql: COALESCE((1.0* ${sum_completed_25}) /nullif(${sum_completion_pct_impressions},0),0);;
   }
 
   dimension: completed_50 {
@@ -440,15 +448,22 @@ view: impression_fact {
     label: "Completed 50"
     description: "The total of all impression which were 50% completed."
     value_format_name: decimal_0
-    sql: ${completed_50} ;;
+    sql: ${completed_50} + ${completed_75} + ${completed_100};;
   }
 
-  measure: sum_completed_50_pct {
+  measure: abs_completed_50 {
+    type: sum
+    description: "The sum of completed 50 used in calculating VCR."
+    hidden: yes
+    value_format_name: decimal_0
+    sql: ${completed_50} ;;
+  }
+  measure: completed_50_pct {
     type: number
     label: "Completed 50%"
     description: "The percentage of all impression which were 50% completed."
     value_format_name: percent_2
-    sql: COALESCE(1.0 * ${sum_completed_50} / nullif(${sum_completion_pct_impressions},0),0) ;;
+    sql: COALESCE((1.0 * ${sum_completed_50} ) / nullif(${sum_completion_pct_impressions},0),0) ;;
   }
 
   dimension: completed_75 {
@@ -462,15 +477,23 @@ view: impression_fact {
     label: "Completed 75"
     description: "The total of all impression which were 75% completed."
     value_format_name: decimal_0
-    sql: ${completed_75} ;;
+    sql: ${completed_75} + ${completed_100} ;;
   }
 
-  measure: sum_completed_75_pct {
+    measure: abs_completed_75 {
+      type: sum
+      description: "The sum of completed 75 used in calculating VCR."
+      hidden: yes
+      value_format_name: decimal_0
+      sql: ${completed_75} ;;
+  }
+
+  measure: completed_75_pct {
     type: number
     label: "Completed 75%"
     description: "The percentage of all impression which were 75% completed."
     value_format_name: percent_2
-    sql: COALESCE(1.0 * ${sum_completed_75} / nullif(${sum_completion_pct_impressions},0),0) ;;
+    sql: COALESCE((1.0 * ${sum_completed_75} ) / nullif(${sum_completion_pct_impressions},0),0) ;;
   }
 
   dimension: completed_pct_impressions {
@@ -515,7 +538,7 @@ view: impression_fact {
     label: "VCR"
     description: "Video Completed Rate - The avarage completion rate of the impression."
     value_format_name: percent_2
-    sql: COALESCE(((${sum_completed_25}*.25) + (${sum_completed_50} *.50) + (${sum_completed_75} *.75)
+    sql: COALESCE(((${abs_completed_25}*.25) + (${abs_completed_50} *.50) + (${abs_completed_75} *.75)
     + (${sum_completed_100} *1.0)) / nullif(${sum_completion_pct_impressions},0),0) ;;
   }
 
@@ -1240,7 +1263,7 @@ view: impression_fact {
   dimension: postalcode_provider {
     type: string
     label: "Postal Code Provider"
-    view_label: "Impression Factets"
+    view_label: "Impression Facets"
     description: "The provider who determined the postal code of the viewer who saw the impression."
     hidden: no
     sql: ${TABLE}.POSTALCODE_PROVIDER ;;
