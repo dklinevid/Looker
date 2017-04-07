@@ -53,3 +53,5 @@ label: "Impression Metrics"
 #}
 
 #explore: campaign_facts {}
+
+explore: core_rollup {}
