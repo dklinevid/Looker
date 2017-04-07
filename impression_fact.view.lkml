@@ -342,7 +342,7 @@ view: impression_fact {
     label: "CTR"
     description: "Click Thru Rate - The number of clicks / the number of click impressions"
     value_format_name: percent_2
-    sql: 1.0 * ${sum_clicks}/NULLIF(${sum_click_impressions},0) ;;
+    sql: COALESCE(1.0 * ${sum_clicks}/NULLIF(${sum_click_impressions},0),0);;
   }
 
   dimension: clicktoplay {
@@ -404,7 +404,7 @@ view: impression_fact {
     label: "Completed 100%"
     description: "The percentage of all impression which were 100% completed."
     value_format_name: percent_2
-    sql: 1.0 * ${completed_100} / nullif(${completed_pct_impressions},0) ;;
+    sql: COALESCE(1.0 * ${completed_100} / nullif(${completed_pct_impressions},0),0) ;;
   }
 
   dimension: completed_25 {
@@ -426,7 +426,7 @@ view: impression_fact {
     label: "Completed 25%"
     description: "The percentage of all impression which were 25% completed."
     value_format_name: percent_2
-    sql: 1.0* ${completed_25} /nullif(${completion_pct_impressions},0);;
+    sql: COALESCE(1.0* ${completed_25} /nullif(${completion_pct_impressions},0),0);;
   }
 
   dimension: completed_50 {
@@ -448,7 +448,7 @@ view: impression_fact {
     label: "Completed 50%"
     description: "The percentage of all impression which were 50% completed."
     value_format_name: percent_2
-    sql: 1.0 * ${completed_50} / nullif(${completion_pct_impressions},0) ;;
+    sql: COALESCE(1.0 * ${completed_50} / nullif(${completion_pct_impressions},0),0) ;;
   }
 
   dimension: completed_75 {
@@ -470,7 +470,7 @@ view: impression_fact {
     label: "Completed 75%"
     description: "The percentage of all impression which were 75% completed."
     value_format_name: percent_2
-    sql: 1.0 * ${completed_75} / nullif(${completion_pct_impressions},0) ;;
+    sql: COALESCE(1.0 * ${completed_75} / nullif(${completion_pct_impressions},0),0) ;;
   }
 
   dimension: completed_pct_impressions {
@@ -507,7 +507,7 @@ view: impression_fact {
     label: "VTR"
     description: "Video Through Rate - the percentage of all impression which were 100% completed."
     value_format_name: percent_2
-    sql: 1.0 * ${completed_100} / nullif(${completed_pct_impressions},0) ;;
+    sql: COALESCE(1.0 * ${completed_100} / nullif(${completed_pct_impressions},0),0) ;;
   }
 
   measure: VCR {
@@ -515,8 +515,8 @@ view: impression_fact {
     label: "VCR"
     description: "Video Completed Rate - The avarage completion rate of the impression."
     value_format_name: percent_2
-    sql: ((${completed_25}*.25) + (${completed_50} *.50) + (${completed_75} *.75)
-    + (${completed_100} *1.0)) / nullif(${completion_pct_impressions},0) ;;
+    sql: COALESCE(((${completed_25}*.25) + (${completed_50} *.50) + (${completed_75} *.75)
+    + (${completed_100} *1.0)) / nullif(${completion_pct_impressions},0),0) ;;
   }
 
   dimension: cost_units {
@@ -669,7 +669,7 @@ view: impression_fact {
     label: "Gross Spend"
     description: "Total Gross Spend converted to Demand Currency: Net Spend * 1 + Agency Fee"
     value_format_name: decimal_2
-    sql: ${demand_revenue} * (1+(${flight_media_details_base.agency_fee})) ;;
+    sql: ${demand_revenue} * (1+(${flight_media_details_base.agency_fee}));;
   }
 
   dimension: demand_tracking_cost {
@@ -803,11 +803,12 @@ view: impression_fact {
     type: sum
     label: "Effective Units"
     description: "The total number of units which were in target."
+    value_format_name: decimal_2
     sql: ${effective_units} ;;
   }
 
   dimension: eventtime {
-    type: date_second
+    type: date_time
     hidden: yes
     description: "Time of the event stored in UTC"
     sql: ${TABLE}.EVENTTIME ;;
@@ -819,14 +820,14 @@ view: impression_fact {
     view_label: "Dates"
     timeframes: [time,date,month,year]
     description: "The date/time of the impression in UTC"
-    sql: ${eventtime} ;;
+    sql: ${TABLE}.EVENTTIME ;;
   }
 
   dimension: est_date {
     type: date_second
     hidden: yes
     description: "Time of the event stored in EST"
-    sql: dateadd(h,-5,${eventtime}) ;;
+    sql: dateadd(h,-5,${TABLE}.EVENTTIME) ;;
   }
 
   dimension_group: EST_Date {
@@ -842,7 +843,7 @@ view: impression_fact {
     type: date_second
     hidden: yes
     description: "Time of the event stored in the demand timezone"
-    sql: dateadd(h,${demand_utc_offset},${eventtime}) ;;
+    sql: dateadd(h,${TABLE}.DEMAND_UTC_OFFSET,${TABLE}.EVENTTIME) ;;
   }
 
   dimension_group: Demand_Date {
@@ -894,6 +895,7 @@ view: impression_fact {
     type: sum
     label: "Impressions"
     description: "The total impressions"
+    value_format_name: decimal_0
     sql: ${impressions} ;;
   }
 
@@ -953,7 +955,7 @@ view: impression_fact {
     label: "Viewable 100%"
     description: "The percent of impressions that were viewable for 100% of the impression."
     value_format_name: decimal_2
-    sql: 1.0 * ${is_viewable_100} / nullif(${is_viewability_measurable},0);;
+    sql: COALESCE(1.0 * ${is_viewable_100} / nullif(${is_viewability_measurable},0),0);;
   }
 
   dimension: is_viewable_25 {
@@ -975,7 +977,7 @@ view: impression_fact {
     label: "Viewable 25%"
     description: "The percent of impressions that were viewable for 25% of the impression."
     value_format_name: decimal_2
-    sql: 1.0 * ${is_viewable_25} / nullif(${is_viewability_measurable},0);;
+    sql: COALESCE(1.0 * ${is_viewable_25} / nullif(${is_viewability_measurable},0),0);;
   }
 
   dimension: is_viewable_50 {
@@ -997,7 +999,7 @@ view: impression_fact {
     label: "Viewable 50%"
     description: "The percent of impressions that were viewable for 50% of the impression."
     value_format_name: decimal_2
-    sql: 1.0 * ${is_viewable_50} / nullif(${is_viewability_measurable},0);;
+    sql:COALESCE( 1.0 * ${is_viewable_50} / nullif(${is_viewability_measurable},0),0);;
   }
 
   dimension: is_viewable_75 {
@@ -1019,7 +1021,7 @@ view: impression_fact {
     label: "Viewable 75%"
     description: "The percent of impressions that were viewable for 75% of the impression.."
     value_format_name: decimal_2
-    sql: 1.0 * ${is_viewable_75} / nullif(${is_viewability_measurable},0);;
+    sql:COALESCE( 1.0 * ${is_viewable_75} / nullif(${is_viewability_measurable},0),0);;
   }
 
   dimension: is_viewable_start {
@@ -1048,7 +1050,7 @@ view: impression_fact {
     label: "Viewablity Rate"
     description: "For impressions where viewablity is measurable, the percent of impressions where the viewablity criteria is staisfied."
     value_format_name: percent_2
-    sql:COALESCE(1.0 * ${is_viewability_satisfied} / nullif(${is_viewability_measurable},0) 0) ;;
+    sql:COALESCE(1.0 * ${is_viewability_satisfied} / nullif(${is_viewability_measurable},0), 0) ;;
   }
 
   dimension: isp {
@@ -1182,10 +1184,18 @@ view: impression_fact {
     sql: ${TABLE}.PLATFORM ;;
   }
 
-  measure: platform_markup {
-    type: sum
-    value_format: "#.00;(#.00)"
+  dimension: platform_markup {
+    type: number
+    hidden: yes
     sql: ${TABLE}.PLATFORM_MARKUP ;;
+  }
+
+  measure: sum_platform_markup {
+    type: sum
+    label: "Platform Markup"
+    value_format_name: decimal_2
+    description: "The total platform markup amount"
+    sql: ${platform_markup} ;;
   }
 
   dimension: player_size {
