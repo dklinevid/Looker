@@ -400,11 +400,11 @@ view: impression_fact {
   }
 
   measure: sum_completed_100_pct {
-    type: sum
+    type: number
     label: "Completed 100%"
     description: "The percentage of all impression which were 100% completed."
     value_format_name: percent_2
-    sql: COALESCE(1.0 * ${completed_100} / nullif(${completed_pct_impressions},0),0) ;;
+    sql: COALESCE(1.0 * ${sum_completed_100} / nullif(${sum_completed_pct_impressions},0),0) ;;
   }
 
   dimension: completed_25 {
@@ -422,11 +422,11 @@ view: impression_fact {
   }
 
   measure: sum_completed_25_pct {
-    type: sum
+    type: number
     label: "Completed 25%"
     description: "The percentage of all impression which were 25% completed."
     value_format_name: percent_2
-    sql: COALESCE(1.0* ${completed_25} /nullif(${completion_pct_impressions},0),0);;
+    sql: COALESCE(1.0* ${sum_completed_25} /nullif(${sum_completion_pct_impressions},0),0);;
   }
 
   dimension: completed_50 {
@@ -444,11 +444,11 @@ view: impression_fact {
   }
 
   measure: sum_completed_50_pct {
-    type: sum
+    type: number
     label: "Completed 50%"
     description: "The percentage of all impression which were 50% completed."
     value_format_name: percent_2
-    sql: COALESCE(1.0 * ${completed_50} / nullif(${completion_pct_impressions},0),0) ;;
+    sql: COALESCE(1.0 * ${sum_completed_50} / nullif(${sum_completion_pct_impressions},0),0) ;;
   }
 
   dimension: completed_75 {
@@ -466,11 +466,11 @@ view: impression_fact {
   }
 
   measure: sum_completed_75_pct {
-    type: sum
+    type: number
     label: "Completed 75%"
     description: "The percentage of all impression which were 75% completed."
     value_format_name: percent_2
-    sql: COALESCE(1.0 * ${completed_75} / nullif(${completion_pct_impressions},0),0) ;;
+    sql: COALESCE(1.0 * ${sum_completed_75} / nullif(${sum_completion_pct_impressions},0),0) ;;
   }
 
   dimension: completed_pct_impressions {
@@ -503,20 +503,20 @@ view: impression_fact {
   }
 
   measure: VTR {
-    type: sum
+    type: number
     label: "VTR"
     description: "Video Through Rate - the percentage of all impression which were 100% completed."
     value_format_name: percent_2
-    sql: COALESCE(1.0 * ${completed_100} / nullif(${completed_pct_impressions},0),0) ;;
+    sql: COALESCE(1.0 * ${sum_completed_100} / nullif(${sum_completed_pct_impressions},0),0) ;;
   }
 
   measure: VCR {
-    type: sum
+    type: number
     label: "VCR"
     description: "Video Completed Rate - The avarage completion rate of the impression."
     value_format_name: percent_2
-    sql: COALESCE(((${completed_25}*.25) + (${completed_50} *.50) + (${completed_75} *.75)
-    + (${completed_100} *1.0)) / nullif(${completion_pct_impressions},0),0) ;;
+    sql: COALESCE(((${sum_completed_25}*.25) + (${sum_completed_50} *.50) + (${sum_completed_75} *.75)
+    + (${sum_completed_100} *1.0)) / nullif(${sum_completion_pct_impressions},0),0) ;;
   }
 
   dimension: cost_units {
@@ -814,6 +814,14 @@ view: impression_fact {
     sql: ${TABLE}.EVENTTIME ;;
   }
 
+  dimension: est_eventtime {
+    type: date_time
+    #hidden: yes
+    description: "Time of the event stored in UTC"
+    sql: dateadd(h,-5,${TABLE}.EVENTTIME) ;;
+  }
+
+
   dimension_group: UTC_Date {
     type: time
     label: "UTC"
@@ -824,7 +832,7 @@ view: impression_fact {
   }
 
   dimension: est_date {
-    type: date_second
+    type: date_time
     hidden: yes
     description: "Time of the event stored in EST"
     sql: dateadd(h,-5,${TABLE}.EVENTTIME) ;;
@@ -836,7 +844,7 @@ view: impression_fact {
     view_label: "Dates"
     timeframes: [time,date,month,year]
     description: "The date/time of the impression in EST"
-    sql: ${est_date} ;;
+    sql: dateadd(h,-5,${TABLE}.EVENTTIME) ;;
   }
 
   dimension: demand_date {
@@ -951,11 +959,11 @@ view: impression_fact {
   }
 
   measure: pct_is_viewable_100 {
-    type: sum
+    type: number
     label: "Viewable 100%"
     description: "The percent of impressions that were viewable for 100% of the impression."
-    value_format_name: decimal_2
-    sql: COALESCE(1.0 * ${is_viewable_100} / nullif(${is_viewability_measurable},0),0);;
+    value_format_name: percent_2
+    sql: COALESCE(1.0 * ${sum_is_viewable_100} / nullif(${sum_is_viewability_measurable},0),0);;
   }
 
   dimension: is_viewable_25 {
@@ -973,11 +981,11 @@ view: impression_fact {
   }
 
   measure: pct_is_viewable_25 {
-    type: sum
+    type: number
     label: "Viewable 25%"
     description: "The percent of impressions that were viewable for 25% of the impression."
-    value_format_name: decimal_2
-    sql: COALESCE(1.0 * ${is_viewable_25} / nullif(${is_viewability_measurable},0),0);;
+    value_format_name: percent_2
+    sql: COALESCE(1.0 * ${sum_is_viewable_25} / nullif(${sum_is_viewability_measurable},0),0);;
   }
 
   dimension: is_viewable_50 {
@@ -995,11 +1003,11 @@ view: impression_fact {
   }
 
   measure: pct_is_viewable_50 {
-    type: sum
+    type: number
     label: "Viewable 50%"
     description: "The percent of impressions that were viewable for 50% of the impression."
-    value_format_name: decimal_2
-    sql:COALESCE( 1.0 * ${is_viewable_50} / nullif(${is_viewability_measurable},0),0);;
+    value_format_name: percent_2
+    sql:COALESCE( 1.0 * ${sum_is_viewable_50} / nullif(${sum_is_viewability_measurable},0),0);;
   }
 
   dimension: is_viewable_75 {
@@ -1017,11 +1025,11 @@ view: impression_fact {
   }
 
   measure: pct_is_viewable_75 {
-    type: sum
+    type: number
     label: "Viewable 75%"
     description: "The percent of impressions that were viewable for 75% of the impression.."
-    value_format_name: decimal_2
-    sql:COALESCE( 1.0 * ${is_viewable_75} / nullif(${is_viewability_measurable},0),0);;
+    value_format_name: percent_2
+    sql:COALESCE( 1.0 * ${sum_is_viewable_75} / nullif(${sum_is_viewability_measurable},0),0);;
   }
 
   dimension: is_viewable_start {
@@ -1050,7 +1058,7 @@ view: impression_fact {
     label: "Viewablity Rate"
     description: "For impressions where viewablity is measurable, the percent of impressions where the viewablity criteria is staisfied."
     value_format_name: percent_2
-    sql:COALESCE(1.0 * ${is_viewability_satisfied} / nullif(${is_viewability_measurable},0), 0) ;;
+    sql:COALESCE(1.0 * ${sum_is_viewability_satisfied} / nullif(${sum_is_viewability_measurable},0), 0) ;;
   }
 
   dimension: isp {
@@ -1200,152 +1208,242 @@ view: impression_fact {
 
   dimension: player_size {
     type: string
+    label: "Player Size"
+    view_label: "Impression Facets"
+    description: "The size of the player where the impression was shown"
     hidden: no
-    sql: ${TABLE}.PLAYER_SIZE ;;
+    sql: CASE when ${TABLE}.PLAYER_SIZE = 6 then 'X-Large'
+              when ${TABLE}.PLAYER_SIZE = 5 then 'Large'
+              when ${TABLE}.PLAYER_SIZE = 4 then 'Medium'
+              when ${TABLE}.PLAYER_SIZE = 3 then 'Small'
+              when ${TABLE}.PLAYER_SIZE = 2 then 'X-Small'
+              when ${TABLE}.PLAYER_SIZE = 1 then 'Thumbnail'
+              when ${TABLE}.PLAYER_SIZE = 0 then 'Unknown'
+              else 'Unknown';;
   }
 
   dimension: poc {
     type: string
-    hidden: no
+    hidden: yes
     sql: ${TABLE}.POC ;;
   }
 
   dimension: postalcode {
     type: zipcode
+    label: "Postal Code"
+    view_label: "Impression Facets"
+    description: "The Postal Code of the viewer who saw the impression."
     hidden: no
     sql: ${TABLE}.POSTALCODE ;;
   }
 
   dimension: postalcode_provider {
     type: string
+    label: "Postal Code Provider"
+    view_label: "Impression Factets"
+    description: "The provider who determined the postal code of the viewer who saw the impression."
     hidden: no
     sql: ${TABLE}.POSTALCODE_PROVIDER ;;
   }
 
-  measure: primary_clicks {
-    type: sum
+  dimension: primary_clicks {
+    type: number
+    hidden: yes
     sql: ${TABLE}.PRIMARY_CLICKS ;;
+  }
+
+  measure: sum_primary_clicks {
+    type: sum
+    label: "Primary Clicks"
+    description: "The number of clicks on the primary impression and not companion impressions."
+    value_format_name: decimal_0
+    sql: ${primary_clicks} ;;
   }
 
   dimension: processingid {
     type: string
+    label: "Processing ID"
+    view_label: "Impression Facets"
+    description: "The system processing id used to process the raw data into the database tables.  Used by the data team only."
     hidden: no
     sql: ${TABLE}.PROCESSINGID ;;
   }
 
   dimension: pub_tracking_id {
     type: string
-    hidden: no
+    hidden: yes
     sql: ${TABLE}.PUB_TRACKING_ID ;;
   }
 
   dimension: referring_url {
     type: string
+    label: "Referring URL"
+    view_label: "Impression Facets"
+    description: "If there is a redirect to the URL of the impression, this is the URL that was the orginating or referring URL."
     hidden: no
     sql: ${TABLE}.REFERRING_URL ;;
   }
 
   measure: revenue {
     type: sum
+    hidden: yes
     value_format: "#.00;(#.00)"
     sql: ${TABLE}.REVENUE ;;
   }
 
-  measure: revenue_cpu {
+  dimension: revenue_cpu {
+    type: number
+    hidden: yes
+    sql: ${TABLE}.REVENUE_CPU ;;
+  }
+
+  measure: avg_revenue_cpu {
     type: average
     label: "Average CPU"
-    value_format: "#.00;(#.00)"
+    value_format_name: decimal_2
+    description: "The average cost per unit."
     sql: ${TABLE}.REVENUE_CPU ;;
   }
 
   dimension: rpu_currency {
     type: string
+    label: "RPU Currency"
+    hidden: yes
     sql: ${TABLE}.RPU_CURRENCY ;;
   }
 
   dimension: rpu_type {
     type: string
+    hidden: yes
     sql: ${TABLE}.RPU_TYPE ;;
   }
 
-  measure: skipped {
+  dimension: skipped {
+    type: number
+    hidden: yes
+    sql: ${TABLE}.SKIPPED ;;
+  }
+
+  measure: sum_skipped {
     type: sum
+    label: "Skipped"
+    description: "The total of impressions which were skipped."
+    value_format_name: decimal_0
     sql: ${TABLE}.SKIPPED ;;
   }
 
   dimension: social_ab {
     type: string
+    label: "Social AB"
+    view_label: "Impression Facets"
+    description: "Social AB of the viewer who saw the impression."
     hidden: no
     sql: ${TABLE}.SOCIAL_AB ;;
   }
 
   dimension: social_abc {
     type: string
+    label: "Social ABC"
+    view_label: "Impression Facets"
+    description: "Social ABC of the viewer who saw the impression."
     hidden: no
     sql: ${TABLE}.SOCIAL_ABC ;;
   }
 
   dimension: supply_platform_client_group_id {
     type: string
-    hidden: no
+    hidden: yes
     sql: ${TABLE}.SUPPLY_PLATFORM_CLIENT_GROUP_ID ;;
   }
 
   dimension: supply_platform_client_id {
     type: string
-    hidden: no
+    hidden: yes
     sql: ${TABLE}.SUPPLY_PLATFORM_CLIENT_ID ;;
   }
 
   dimension: supply_region_utc_offset {
     type: string
-    hidden: no
+    hidden: yes
     sql: ${TABLE}.SUPPLY_REGION_UTC_OFFSET ;;
   }
 
   dimension: supply_utc_offset {
-    type: string
+    type: number
+    label: "Supply Timezone UTC offset"
+    description: "The UTC offset of the publisher (supply). Used to convert UTC time to the supply timezone."
     hidden: no
     sql: ${TABLE}.SUPPLY_UTC_OFFSET ;;
   }
 
-  measure: tracking_cost {
+  dimension: tracking_cost {
+    type: number
+    hidden: yes
+    sql: ${TABLE}.TRACKING_COST ;;
+  }
+
+  measure: sum_tracking_cost {
     type: sum
-    value_format: "#.00;(#.00)"
+    label: "Tracking Cost"
+    value_format_name: decimal_2
+    description: "The total of all tracking costs in natvie currency."
     sql: ${TABLE}.TRACKING_COST ;;
   }
 
   dimension: tracking_cost_currency {
     type: string
+    label: "Tracking Cost Currency"
+    description: "The native currency of the tracking costs."
     sql: ${TABLE}.TRACKING_COST_CURRENCY ;;
   }
 
-  measure: tracking_cost_markup {
+  dimension: tracking_cost_markup {
+    type: number
+    hidden: yes
+    sql: ${TABLE}.TRACKING_COST_MARKUP ;;
+  }
+  measure: sum_tracking_cost_markup {
     type: sum
-    value_format: "#.00;(#.00)"
+    label: "Tracking Cost Markup"
+    value_format_name: decimal_2
+    description: "The total of all markups on tracking costs."
     sql: ${TABLE}.TRACKING_COST_MARKUP ;;
   }
 
-  measure: units {
+  dimension: units {
+    type: number
+    hidden: yes
+    sql: ${TABLE}.UNITS ;;
+  }
+
+  measure: sum_units {
     type: sum
+    label: "Units"
+    value_format_name: decimal_0
+    description: "The number of units served.  This is based on the revenue type of the campaign to determine units."
     sql: ${TABLE}.UNITS ;;
   }
 
   dimension: userid {
     type: string
+    label: "User ID"
+    view_label: "Impression Facets"
+    description: "The GUID of the user who saw the impression."
     hidden: no
     sql: ${TABLE}.USERID ;;
   }
 
   dimension: version_no {
     type: string
-    hidden: no
+    label: "Version Number"
+    view_label: "Impression Facets"
+    description: "The version number of the logger which logged the impression."
     sql: ${TABLE}.VERSION_NO ;;
   }
 
   dimension: viewability_measurable_code {
     type: string
-    hidden: no
+    hidden: yes
     sql: ${TABLE}.VIEWABILITY_MEASURABLE_CODE ;;
   }
 
