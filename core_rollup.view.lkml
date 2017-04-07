@@ -38,8 +38,17 @@ view: core_rollup {
   }
 
   dimension: adserving_cost {
-    type: string
+    type: number
+    hidden: yes
     sql: ${TABLE}.ADSERVING_COST ;;
+  }
+
+  measure: sum_adserving_cost {
+    type: sum
+    label: "Adserving Costs"
+    description: "Total of all Adserving Costs"
+    value_format_name: decimal_2
+    sql: ${adserving_cost} ;;
   }
 
   dimension: adserving_cost_currency {

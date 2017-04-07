@@ -66,6 +66,7 @@ view: impression_fact {
     hidden: yes
     sql: ${TABLE}.ADSERVING_COST_MARKUP ;;
   }
+
   measure: sum_adserving_cost_markup {
     type: sum
     label: "Adserving Cost Markup"
@@ -83,7 +84,7 @@ view: impression_fact {
 
   dimension: asset_group_clearcast_codes {
     type: string
-    description: "The Clearcast Codes for teh asset group"
+    description: "The Clearcast Codes for the asset group"
     hidden: no
     sql: ${TABLE}.ASSET_GROUP_CLEARCAST_CODES ;;
     view_label: "Impression Facets"
@@ -146,7 +147,7 @@ view: impression_fact {
     sql: ${TABLE}.BID ;;
   }
 
-  measure: total_bid {
+  measure: avg_bid {
     type: average
     label: "Average Bid Amount "
     description: "The average amount of the bid price"
@@ -337,7 +338,7 @@ view: impression_fact {
   }
 
 
-  measure: avg_ctr {
+  measure: ctr {
     type: number
     label: "CTR"
     description: "Click Thru Rate - The number of clicks / the number of click impressions"
@@ -832,7 +833,7 @@ view: impression_fact {
 
   dimension: eventtime {
     type: date_time
-    #hidden: yes
+    hidden: yes
     description: "Time of the event stored in UTC"
     sql: ${TABLE}.EVENTTIME ;;
   }
