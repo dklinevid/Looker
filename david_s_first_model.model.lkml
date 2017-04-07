@@ -45,11 +45,11 @@ label: "Impression Metrics"
   }
 }
 
-explore: flight_details {
-  join: flight_media_details_base {
-    relationship: many_to_one
-    sql_on: ${flight_media_details_base.flight_id} = ${flight_details.flight_id} ;;
-  }
-}
+##explore: flight_details {
+#  join: flight_media_details_base {
+ #   relationship: many_to_one
+  #  sql_on: ${flight_media_details_base.flight_id} = ${flight_details.flight_id} ;;
+#  }
+#}
 
-explore: campaign_facts {}
+#explore: campaign_facts {}
