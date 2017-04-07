@@ -3,16 +3,37 @@ view: core_rollup {
 
   dimension: ad_buyer {
     type: string
+    hidden: yes
     sql: ${TABLE}.AD_BUYER ;;
   }
 
   dimension: addon_product_cost {
-    type: string
+    type: number
+    hidden: yes
     sql: ${TABLE}.ADDON_PRODUCT_COST ;;
   }
 
+  measure: total_addon_product_cost {
+    type: sum
+    label: "Addon Product Cost"
+    description: "The total of all costs for add-ons"
+    value_format_name: decimal_2
+    sql: ${addon_product_cost} ;;
+  }
+
+  measure: avg_addon_product_cost {
+    type: average
+    label: "Average Addon Product Costs"
+    description: "The average of all costs for add-ons"
+    value_format_name: decimal_2
+    sql: ${addon_product_cost} ;;
+  }
+
+
+
   dimension: adserver_code {
     type: string
+    hidden: yes
     sql: ${TABLE}.ADSERVER_CODE ;;
   }
 

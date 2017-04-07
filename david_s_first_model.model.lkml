@@ -7,7 +7,9 @@ include: "*.view"
 include: "*.dashboard"
 
 explore: impression_fact {
-label: "Impression Metrics"
+label: "Raw Impression Metrics"
+description: "This explore includes impression metrics and raw attributes (facets) they can be aggregated by.
+It is recommened to use Core Metrics unless raw attributes like adid, or userid are required."
 
   join: flight_media_details_base {
     relationship: many_to_one
@@ -55,6 +57,10 @@ label: "Impression Metrics"
 #explore: campaign_facts {}
 
 explore: core_rollup {
+  label: "Core Metrics"
+  description: "This explore includes both impression and request data along with the core attributes (facets) that they
+  can be aggregated by."
+
   join: flight_media_details_base {
     relationship: many_to_one
     sql_on: ${flight_media_details_base.flight_media_id} = ${core_rollup.flight_media} ;;
