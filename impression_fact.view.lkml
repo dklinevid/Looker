@@ -169,6 +169,7 @@ view: impression_fact {
     type: sum
     label: "Billable Impressions"
     description: "The number of impressions that were billable to the client"
+    value_format_name: decimal_2
     sql: ${billable_impressions} ;;
   }
 
