@@ -4,6 +4,8 @@ view: insertion_order_details {
 
   dimension: account_rep {
     type: string
+    label: "IO Account Rep"
+    description: "The name of the internal demand partner account representative"
     sql: ${TABLE}.ACCOUNT_REP ;;
   }
 
@@ -15,6 +17,7 @@ view: insertion_order_details {
 
   dimension: business_hemisphere_description {
     type: string
+    hidden: yes
     sql: ${TABLE}.BUSINESS_HEMISPHERE_DESCRIPTION ;;
   }
 
@@ -32,6 +35,9 @@ view: insertion_order_details {
 
   dimension: business_region_description {
     type: string
+    label: "Business Region"
+    view_label: "Demand Platform Client"
+    description: "The business region of the demand customer (Americas, EMEA, or APAC)."
     sql: ${TABLE}.BUSINESS_REGION_DESCRIPTION ;;
   }
 
@@ -49,17 +55,22 @@ view: insertion_order_details {
 
   dimension: contract_number {
     type: string
+    label: "Contract Number"
+    description: "The Insertion Order contract number."
     sql: ${TABLE}.CONTRACT_NUMBER ;;
   }
 
   dimension: createdon {
     type: date
+    label: "Created Date"
+    description: "The date the Insertion Order was created in the system."
     #hidden: yes
     sql: ${TABLE}.CREATEDON ;;
   }
 
   dimension: currency_abbreviation {
     type: string
+    hidden: yes
     sql: ${TABLE}.CURRENCY_ABBREVIATION ;;
   }
 
@@ -71,16 +82,22 @@ view: insertion_order_details {
 
   dimension: insertion_order_id {
     type: string
+    label: "Insertion Order ID"
+    description: "The internal identifier of the Insertion Order."
     sql: ${TABLE}.INSERTION_ORDER_ID ;;
   }
 
   dimension: insertion_order_name {
     type: string
+    label: "Insertion Order"
+    description: "The name of the Insertion Order."
     sql: ${TABLE}.INSERTION_ORDER_NAME ;;
   }
 
   dimension: insertion_order_status_description {
     type: string
+    label: "Insertion Order Status"
+    description: "The current status of the Insertion Order."
     sql: ${TABLE}.INSERTION_ORDER_STATUS_DESCRIPTION ;;
   }
 
@@ -92,16 +109,22 @@ view: insertion_order_details {
 
   dimension: io_active {
     type: yesno
+    label: "IO Active"
+    description: "A yes/no indicator if the Insertion Order is currently active."
     sql: ${TABLE}.IO_ACTIVE ;;
   }
 
   dimension: io_begin_date {
     type: date
+    label: "IO Begin Date"
+    description: "The start date of the Insertion Order"
     sql: ${TABLE}.IO_BEGIN_DATE ;;
   }
 
   dimension: io_end_date {
     type: date
+    label: "IO End Date"
+    description: "The end date of the Insertion Order"
     sql: ${TABLE}.IO_END_DATE ;;
   }
 
@@ -113,12 +136,14 @@ view: insertion_order_details {
 
   dimension: office_id {
     type: string
+    hidden: yes
     sql: ${TABLE}.OFFICE_ID ;;
   }
 
   dimension: office_name {
     type: string
     label: "Insertion Order Office"
+    hidden: yes
     sql: ${TABLE}.OFFICE_NAME ;;
   }
 
@@ -178,11 +203,14 @@ view: insertion_order_details {
 
   dimension: salesperson {
     type: string
+    hidden: yes
     sql: ${TABLE}.SALESPERSON ;;
   }
 
   dimension: salesperson_name {
     type: string
+    label: "Salesperson"
+    description: "The name of the salesperson for the IO, if applicable."
     sql: ${TABLE}.SALESPERSON_NAME ;;
   }
 

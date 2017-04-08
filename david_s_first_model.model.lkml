@@ -26,6 +26,11 @@ It is recommened to use Core Metrics unless raw attributes like adid, or userid 
     sql_on: ${flight_details.campaign_id} = ${campaign_details_base.campaign_id} ;;
   }
 
+  join: customer_details {
+    relationship: many_to_one
+    sql_on: ${campaign_details_base.customer_id} = ${customer_details.customer_id} ;;
+  }
+
   join: advertiser_brand_details {
     relationship: many_to_one
     sql_on: ${campaign_details_base.advertiser_brand_id} = ${advertiser_brand_details.advertiser_brand_id} ;;

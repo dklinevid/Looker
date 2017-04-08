@@ -170,36 +170,48 @@ view: campaign_details_base {
 
   dimension: contracted_addedvalue_units {
     type: number
-
+    label: "Contracted Added Value Units"
+    description: "The number of units that were added at no charge as defined in the contract."
+    value_format_name: decimal_0
     sql: ${TABLE}.CONTRACTED_ADDEDVALUE_UNITS ;;
   }
 
   dimension: contracted_budget {
     type: number
+    label: "Contracted Budget"
+    description: "The amount of budget to deliver as defined in the contract."
     value_format_name: decimal_2
     sql: ${TABLE}.CONTRACTED_BUDGET ;;
   }
 
   dimension: contracted_cpu {
     type: number
+    label: "Contracted CPU"
+    description: "The contracted Cost per Unit"
     value_format_name: decimal_2
     sql: ${TABLE}.CONTRACTED_CPU ;;
   }
 
   dimension: contracted_units {
     type: number
+    label: "Contracted Units"
+    description: "The number of units to deliver as defined in the contract."
     value_format_name: decimal_0
     sql: ${TABLE}.CONTRACTED_UNITS ;;
   }
 
   dimension: cpu {
     type: number
+    label: "CPU"
+    description: "The actual CPU of the campaign."
     value_format_name: decimal_2
     sql: ${TABLE}.CPU ;;
   }
 
   dimension: cpu_type_description {
     type: string
+    label: "CPU Type"
+    description: "The CPU type of the campagin.  Examples include, CPM, CPCV, dCPM, etc."
     sql: ${TABLE}.CPU_TYPE_DESCRIPTION ;;
   }
 
@@ -223,6 +235,8 @@ view: campaign_details_base {
 
   dimension: customer_io_number {
     type: string
+    label: "Customer IO Number"
+    description: "The Insertion Order Number as the customer defines it."
     sql: ${TABLE}.CUSTOMER_IO_NUMBER ;;
   }
 
@@ -240,6 +254,8 @@ view: campaign_details_base {
 
   dimension: demo_segment_group_description {
     type: string
+    label: "Demo Segment Group"
+    description: "The Demo Segment Group of the campaign.  Examples include Ages 18 and older, US Standard, UK Standard, etc."
     sql: ${TABLE}.DEMO_SEGMENT_GROUP_DESCRIPTION ;;
   }
 
@@ -251,6 +267,8 @@ view: campaign_details_base {
 
   dimension: device_type_description {
     type: string
+    label: "Device Type"
+    description: "The device type the campaign is targeted to.  Examples include, PC, Mobile, Agnostic, etc."
     sql: ${TABLE}.DEVICE_TYPE_DESCRIPTION ;;
   }
 
@@ -262,11 +280,15 @@ view: campaign_details_base {
 
   dimension: end_datetime_local {
     type: date
+    label: "End Time - Local"
+    description: "The end time of the Campaign in the Campaign's timezone."
     sql: ${TABLE}.END_DATETIME_LOCAL ;;
   }
 
   dimension: format_type_description {
     type: string
+    label: "Format Type"
+    description: "The format of the campaign's targeting.  Examples include, Digitial Video, Display, Linear TV, etc."
     sql: ${TABLE}.FORMAT_TYPE_DESCRIPTION ;;
   }
 
@@ -278,6 +300,8 @@ view: campaign_details_base {
 
   dimension: grp_audience_size {
     type: number
+    label: "GRP Audience"
+    description: "The size of the audience for this campaign used in measuring gross rating points."
     sql: ${TABLE}.GRP_AUDIENCE_SIZE ;;
   }
 
@@ -289,31 +313,43 @@ view: campaign_details_base {
 
   dimension: is_preemptible {
     type: yesno
+    label: "Pre-emptible"
+    description: "A yes/no indicator if the campaign is pre-emptible."
     sql: ${TABLE}.IS_PREEMPTIBLE ;;
   }
 
   dimension: is_revenue_generating {
     type: yesno
+    label: "Revenue Generating"
+    description: "A yes/no indicator if the campaign is revenue generating for the company."
     sql: ${TABLE}.IS_REVENUE_GENERATING ;;
   }
 
   dimension: is_running {
     type: yesno
+    label: "Running"
+    description: "A yes/no indicator if the campaign is running."
     sql: ${TABLE}.IS_RUNNING ;;
   }
 
   dimension: is_test_campaign {
     type: yesno
+    label: "Test Campaign"
+    description: "A yes/no indicator if the campaign is a test campaign."
     sql: ${TABLE}.IS_TEST_CAMPAIGN ;;
   }
 
   dimension: isfiller {
     type: yesno
+    label: "House"
+    description: "A yes/no indicator if the campaign is a house/filler campaign."
     sql: ${TABLE}.ISFILLER ;;
   }
 
   dimension: isguaranteed {
     type: yesno
+    label: "Guaranteed"
+    description: "A yes/no indicator if the campaign is guaranteed."
     sql: ${TABLE}.ISGUARANTEED ;;
   }
 
@@ -325,6 +361,7 @@ view: campaign_details_base {
 
   dimension: office_name {
     type: string
+    hidden: yes
     sql: ${TABLE}.OFFICE_NAME ;;
   }
 
@@ -443,7 +480,7 @@ view: campaign_details_base {
   dimension: trp_audience_size {
     type: number
     label: "TRP Audience"
-    description: "The total size of the audience available for the selected targeting (targeted reach)."
+    description: "The total size of the audience available for the selected targeting used for calculating targeted rating points."
     sql: ${TABLE}.TRP_AUDIENCE_SIZE ;;
   }
 
