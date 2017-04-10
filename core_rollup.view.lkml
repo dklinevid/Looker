@@ -143,14 +143,32 @@ view: core_rollup {
   }
 
   dimension: billable_impressions {
-    type: string
+    type: number
+    hidden: yes
     sql: ${TABLE}.BILLABLE_IMPRESSIONS ;;
   }
 
+  measure: total_billable_impressions {
+    type: sum
+    label: "Billable Impressions"
+    description: "The number of impressions that were billable to the client"
+    value_format_name: decimal_2
+    sql: ${billable_impressions} ;;
+  }
+
   dimension: billable_units {
-    type: string
+    type: number
+    hidden: yes
     sql: ${TABLE}.BILLABLE_UNITS ;;
   }
+
+  measure: total_billable_units {
+    type: sum
+    label: "Billable Units"
+    description: "The number of units that were billable to the client.  The unit will depend on the CPU type."
+    sql: ${billable_units} ;;
+  }
+
 
   dimension: browser {
     type: string
