@@ -1,4 +1,5 @@
 view: core_rollup {
+  view_label: "Core Metrics"
   sql_table_name: RAWDB.CORE_ROLLUP ;;
 
   dimension: ad_buyer {
@@ -53,41 +54,81 @@ view: core_rollup {
 
   dimension: adserving_cost_currency {
     type: string
+    description: "The native currency of the adserving costs"
     sql: ${TABLE}.ADSERVING_COST_CURRENCY ;;
   }
 
   dimension: adserving_cost_markup {
-    type: string
+    type: number
+    hidden: yes
     sql: ${TABLE}.ADSERVING_COST_MARKUP ;;
+  }
+
+  measure: sum_adserving_cost_markup {
+    type: sum
+    label: "Adserving Cost Markup"
+    description: "Total of all markup costs on adserving"
+    value_format_name: decimal_2
+    sql: ${adserving_cost_markup} ;;
   }
 
   dimension: age {
     type: string
+    hidden: yes
     sql: ${TABLE}.AGE ;;
   }
 
   dimension: age_description {
     type: string
+    view_label: "Core Facets"
+    label: "Age"
+    description: "The age of the person who saw the ad, this could be known or unknown"
     sql: ${TABLE}.AGE_DESCRIPTION ;;
   }
 
   dimension: agency_fee {
-    type: string
+    type: number
+    hidden: yes
+    sql: ${TABLE}.AGENCY_FEE ;;
+  }
+
+  measure: sum_agency_fee {
+    type: sum
+    view_label: "Agency Fee"
+    description: "The total of all agency fees (the amount the agency charges the customer)."
     sql: ${TABLE}.AGENCY_FEE ;;
   }
 
   dimension: autoplay {
-    type: string
+    type: number
+    hidden: yes
     sql: ${TABLE}.AUTOPLAY ;;
   }
 
+  measure: sum_autoplay {
+    type: sum
+    description: "Total of all impressions which were autoplay impressions"
+    label: "Autoplay"
+    value_format_name: decimal_2
+    sql: ${autoplay} ;;
+  }
+
+
   dimension: bid {
-    type: string
+    type: number
+    hidden: yes
     sql: ${TABLE}.BID ;;
   }
 
+  measure: avg_bid {
+    type: average
+    label: "Average Bid Amount "
+    description: "The average amount of the bid price"
+    sql: ${bid} ;;
+  }
   dimension: bid_currency {
     type: string
+    description: "The native currency of the bid amount"
     sql: ${TABLE}.BID_CURRENCY ;;
   }
 
