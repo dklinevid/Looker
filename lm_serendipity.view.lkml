@@ -138,6 +138,13 @@ view: lm_serendipity {
 
   dimension: click {
     type: number
+    hidden: yes
+    sql: ${TABLE}.click ;;
+  }
+
+  measure: sum_click {
+    type: sum
+    label: "Clicks"
     sql: ${TABLE}.click ;;
   }
 
@@ -146,8 +153,17 @@ view: lm_serendipity {
     sql: ${TABLE}.click_conversion ;;
   }
 
+  measure: sum_click_conversion {
+    type: sum
+    label: "Click Conversion"
+    description: "The total of all click converstion"
+    sql: ${TABLE}.click_conversion ;;
+  }
+
   dimension: cluster_id {
     type: string
+    view_label: "Facets"
+    label: "Cluster ID"
     sql: ${TABLE}.cluster_id ;;
   }
 
@@ -227,8 +243,16 @@ view: lm_serendipity {
 
   dimension: impression {
     type: number
+    hidden: yes
     sql: ${TABLE}.impression ;;
   }
+
+  measure: sum_impression {
+    type: sum
+    label: "Requests"
+    sql: ${TABLE}.impression ;;
+  }
+
 
   dimension: inventory_source_level_1 {
     type: string
