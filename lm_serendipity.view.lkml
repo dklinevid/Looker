@@ -3,11 +3,15 @@ view: lm_serendipity {
 
   dimension: ad_position {
     type: string
+    view_label: "Facets"
+    label: "Ad Position"
     sql: ${TABLE}.ad_position ;;
   }
 
   dimension: ad_size {
     type: string
+    view_label: "Facets"
+    label: "Ad Size"
     sql: ${TABLE}.ad_size ;;
   }
 
